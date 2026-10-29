@@ -1,58 +1,59 @@
-FVWM3
------
+# ykwm
 
-[![Codacy Status](https://api.codacy.com/project/badge/Grade/0bfafcfd16b84a96a1305e92de2d6c4c)](https://app.codacy.com/gh/fvwmorg/fvwm3?utm_source=github.com&utm_medium=referral&utm_content=fvwmorg/fvwm3&utm_campaign=Badge_Grade_Settings)
-![Build Status](https://github.com/fvwmorg/fvwm3/workflows/FVWM3%20CI/badge.svg)
-![Open issues](https://img.shields.io/github/issues-raw/fvwmorg/fvwm3)
-![GitHub contributors](https://img.shields.io/github/contributors/fvwmorg/fvwm3)
+**A FORK OF FVWM3**
 
-Welcome to fvwm.  Version 3 is a multiple large virtual desktop window manager.
+ykwm is the window management component of [YeKara](https://github.com/viktor-878/Yekara-Desktop-Interface-System), a retro-inspired Linux desktop environment built around simplicity, speed, and a distinctly classic UNIX workstation aesthetic.
 
-The successor to [fvwm-2.6.x](http://github.com/fvwmorg/fvwm).
+Forked from [FVWM3](https://github.com/fvwmorg/fvwm3) 1.1.5, ykwm builds upon FVWM's highly customizable, lightweight window management architecture to serve as the foundation of the YeKara desktop experience.
 
-Fvwm3 is intended to be extremely customizable and extendible while consuming
-a relatively small amount of resources.
+The project follows YeKara's design philosophy:
 
-Fvwm2 Compatibility
--------------------
+- **Simple**: A focused window management experience without unnecessary complexity.
+- **Fast**: Lightweight operation, designed to work well on modest hardware.
+- **Retro**: A classic desktop computing aesthetic inspired by the UNIX workstations and graphical environments of the 1990s.
+- **Customizable**: Flexible configuration and window management behavior inherited from FVWM.
 
-Although an existing fvwm2 configuration should mostly work with fvwm3, it
-isn't guaranteed to work without some modifications.  This is because fvwm3
-has changed, often removing long-standing deprecated options.
+ykwm is not an independent window manager written from scratch. It is a fork of FVWM3, adapted and developed for the needs of YeKara.
 
-More details about those changes [can be found here](https://github.com/fvwmorg/fvwm3/discussions/878)
+## Relationship with FVWM3
 
-Releases / Changelog
---------------------
+ykwm originates from [FVWM3](https://github.com/fvwmorg/fvwm3) 1.1.5, the successor to FVWM 2.6.x.
 
-* [See the CHANGELOG](./CHANGELOG.md)
+FVWM3 provides the underlying window management functionality and customization framework. ykwm maintains this foundation while allowing YeKara-specific development, configuration, and integration.
 
-Installation
-------------
+Upstream FVWM3 and its original authors retain their respective copyrights and attribution. Changes made specifically for ykwm belong to this fork and are subject to the applicable licensing terms.
 
-See [the installation instructions](./INSTALL.md)
+## Compatibility
 
-Help & Support
---------------
+ykwm inherits much of its behavior and configuration heritage from FVWM3.
 
-We have a strong community on IRC (libera.chat), in the `#fvwm` channel if you
-fancy a chat.
+Compatibility with upstream FVWM3 configurations depends on the changes introduced by this fork. Configurations may require modifications as ykwm evolves, particularly where YeKara-specific behavior or altered functionality is involved.
 
-There is also the [Fvwm Forums](https://fvwmforums.org) where you can ask
-questions.
+For upstream compatibility information and historical configuration changes, consult the [FVWM3 project](https://github.com/fvwmorg/fvwm3).
 
-Issues (for bugs) can be opened, and any/all bug reports are appreciated!
+## Installation
 
-Development
------------
+ykwm is intended for use as part of the YeKara desktop environment.
 
-Those interested in contributing to FVWM3 should have [a read of the developer
-documentation](./dev-docs/DEVELOPERS.md).
+For build instructions, dependencies, installation steps, and development setup, consult the relevant project documentation and build files in this repository.
 
-* A [TODO file](./dev-docs/TODO.md) exists, and sometimes even things from it are
-worked on.
+## Development
 
-* New commands and config file syntax thoughts [are being documented here](./dev-docs/NEW-COMMANDS.md).
+Development of ykwm focuses on maintaining its FVWM3 foundation while adapting the window manager to YeKara's requirements.
 
-Please open a github issue or contact me directly if you wish to discuss a
-particular feature of issue you need help with.
+Contributions, bug reports, and suggestions are welcome. When reporting an issue, please include the relevant configuration, steps to reproduce the problem, and any available diagnostic output.
+
+For issues originating in upstream FVWM3 rather than ykwm-specific changes, consult the [FVWM3 issue tracker](https://github.com/fvwmorg/fvwm3/issues).
+
+## Upstream Project
+
+- **Original project:** [FVWM3](https://github.com/fvwmorg/fvwm3)
+- **Upstream documentation:** [FVWM3 README](https://github.com/fvwmorg/fvwm3/blob/main/README.md)
+- **Upstream issue tracker:** [FVWM3 Issues](https://github.com/fvwmorg/fvwm3/issues)
+
+---
+
+**ykwm** is part of **YeKara**.
+
+*Simples, Rápido, Retrô.*
+

@@ -9,17 +9,17 @@
 #
 #
 # Intended to be called from meson.
-set -e
+#set -e
 
-VERSION="released"
-RS=".release-status"
+#VERSION="released"
+#RS=".release-status"
 
-[ -d ".git" ] || { echo "$VERSION" && exit 0 ; }
+#[ -d ".git" ] || { echo "$VERSION" && exit 0 ; }
 
-. "./$RS"
+#. "./$RS"
 
-[ -z "$ISRELEASED" ] && { echo "UNKNOWN" && exit 0 ; }
-[ "$ISRELEASED" = "yes" ] && { echo "$VERSION" && exit 0 ; }
+#[ -z "$ISRELEASED" ] && { echo "UNKNOWN" && exit 0 ; }
+#[ "$ISRELEASED" = "yes" ] && { echo "$VERSION" && exit 0 ; }
 
-git describe --always --long --dirty --tags
+#git describe --always --long --dirty --tags
 

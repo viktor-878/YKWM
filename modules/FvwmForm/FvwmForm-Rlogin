@@ -28,3 +28,5 @@ DestroyModuleConfig  FvwmForm-Rlogin: *
 *FvwmForm-Rlogin: Command      Nop
 # Tell FvwmForm to read vars from the .FvwmForm-RloginDefault file:
 *FvwmForm-Rlogin: UseData .FvwmForm-Rlogin *FvwmForm-RloginDefault
+
+Module FvwmForm FvwmForm-Rlogin

@@ -1,0 +1,64 @@
+! ==========================================================
+! Yekara Default Theme
+! ==========================================================
+
+! Surface
+*background: #cdd7e3
+*foreground: #000000
+
+! Inactive Window
+Ykwm*InactWinColorsetBG: #cdd7e3
+Ykwm*InactWinColorsetFG: #000000
+! Active Window
+Ykwm*ActiveWinColorsetBG: #DDA0DD
+Ykwm*ActiveWinColorsetFG: #000000
+
+! Inactive Border
+Ykwm*InactWinBorderColorsetBG: #cdd7e3
+
+! Active Border
+Ykwm*ActiveWinBorderColorsetBG: #DDA0DD
+
+! Inactive Border
+Ykwm*InactWinBorderColorsetFG: #000000
+
+! Active Border
+Ykwm*ActiveWinBorderColorsetFG: #000000
+
+! Menu
+Ykwm*MenuInactItemColorsetBG: #cdd7e3
+Ykwm*MenuActItemColorsetBG: #DDA0DD
+
+! Menu Title
+Ykwm*MenuTitleColorsetBG: #DDA0DD
+Ykwm*MenuTitleColorsetFG: #FFFFFF
+
+! ----------------------------------------------------------
+! Cursor
+! ----------------------------------------------------------
+
+Xcursor.theme: yekara-cursors
+Xcursor.size: 24
+
+! ----------------------------------------------------------
+! YKFont
+! ----------------------------------------------------------
+Xft.dpi: 72
+Yekara*Font: Adobe Helvetica, 12
+
+*highlightThickness: 0
+! Target the menu bar widget (usually named 'menubar' or of class XmRowColumn
+*menubar.shadowThickness:  1
+*menubar*XmCascadeButton.shadowThickness: 1
+
+! 1. Tell the menu bar not to recalculate its own height
+*menubar.resizeHeight: False
+
+! 2. Force the exact pixel height
+*menubar.height: 21
+
+! 3. Force the internal buttons not to try and stretch the container
+*menubar*XmCascadeButton.resizeHeight: False
+
+Yekara*BackdropType: "color"
+Yekara*BackdropColor: #4682B4

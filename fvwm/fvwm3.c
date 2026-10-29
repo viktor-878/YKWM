@@ -1206,12 +1206,12 @@ static void setVersionInfo(void)
 	size_t support_len;
 
 	/* Set version information string */
-	snprintf(version_str, sizeof(version_str), "fvwm3 %s (%s)", VERSION, VERSIONINFO);
+	snprintf(version_str, sizeof(version_str), "ykwm %s; based on FVWM3 1.1.5", VERSION);
 	Fvwm_VersionInfo = fxstrdup(version_str);
 
 	snprintf(license_str, sizeof(license_str),
-		"fvwm3 comes with NO WARRANTY, to the extent permitted by law. "
-		"You may\nredistribute copies of fvwm under "
+		"ykwm is a fork of fvwm3 and comes with NO WARRANTY, to the extent permitted by law. "
+		"You may\nredistribute copies of ykwm under "
 		"the terms of the GNU General Public License.\n"
 		"For more information about these matters, see the file "
 		"named COPYING.");

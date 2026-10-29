@@ -11,10 +11,40 @@ FvwmCommand = configure_file(
     install_mode: install_mask_755,
 )
 
+ykwm_read_xresource_colors = install_data(
+    'ykwm-read-xresource-colors',
+    install_dir: bindir,
+    install_mode: install_mask_755,
+)
+
+ykwm_animation_speed = install_data(
+    'ykwm-animation-speed',
+    install_dir: bindir,
+    install_mode: install_mask_755,
+)
+
 # We should tighten up the dependencies here, but for now we'll just use all_found_deps.
 fvwm_root = executable(
     'fvwm-root',
     'fvwm-root.c',
+    include_directories: includedirs,
+    link_with: libfvwm3,
+    dependencies: all_found_deps,
+    install: true,
+)
+
+ykwm_applications_menu = executable(
+    'ykwm-applications-menu',
+    'ykwm-applications-menu.c',
+    include_directories: includedirs,
+    link_with: libfvwm3,
+    dependencies: all_found_deps,
+    install: true,
+)
+
+ykwm_session_dialog = executable(
+    'ykwm-session-dialog',
+    'ykwm-session-dialog.c',
     include_directories: includedirs,
     link_with: libfvwm3,
     dependencies: all_found_deps,

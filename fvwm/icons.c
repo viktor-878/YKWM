@@ -17,6 +17,7 @@
  *
  * fvwm icon code
  *
+ 
  */
 
 #include "config.h"
@@ -1082,13 +1083,13 @@ void DrawIconTitleWindow(
 		    i += ICON_TITLE_STICK_VERT_DIST)
 		{
 			RelieveRectangle(
-				dpy, FW_W_ICON_TITLE(fw), x_stipple,
-				i, w_stipple - 1, 1, Shadow,
+				dpy, FW_W_ICON_TITLE(fw), x_stipple + 3,
+				i, w_stipple - 1 - 3 - 3, 1, Shadow,
 				Relief, ICON_TITLE_STICK_HEIGHT);
 			RelieveRectangle(
 				dpy, FW_W_ICON_TITLE(fw),
-				w_title_w - x_stipple - w_stipple, i,
-				w_stipple - 1, 1, Shadow, Relief,
+				w_title_w - x_stipple - w_stipple + 3, i,
+				w_stipple - 1 - 3 - 3, 1, Shadow, Relief,
 				ICON_TITLE_STICK_HEIGHT);
 		}
 	}
@@ -1215,6 +1216,20 @@ void DrawIconPixmapWindow(
 			(fw->icon_background_relief > 0)? Relief:Shadow,
 			(fw->icon_background_relief > 0)? Shadow:Relief,
 			abs(fw->icon_background_relief));
+		RelieveRectangle(
+			dpy, FW_W_ICON_PIXMAP(fw), 6, 6,
+			fw->icon_g.picture_w_g.width - 1 - 6 - 6,
+			fw->icon_g.picture_w_g.height - 1 - 6  - 6,
+			(fw->icon_background_relief > 0)? Shadow:Relief,
+			(fw->icon_background_relief > 0)? Relief:Shadow,
+			1);
+		RelieveRectangle(
+			dpy, FW_W_ICON_PIXMAP(fw), 7, 7,
+			fw->icon_g.picture_w_g.width - 1 - 7 - 7,
+			fw->icon_g.picture_w_g.height - 1 - 7  - 7,
+			(fw->icon_background_relief > 0)? Relief:Shadow,
+			(fw->icon_background_relief > 0)? Shadow:Relief,
+			1);
 	}
 
 }

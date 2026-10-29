@@ -127,7 +127,7 @@ static int get_outline_rects(XRectangle *rects, rectangle geom)
 	int n;
 	int m;
 
-	n = 3;
+	n = 5;
 	m = (geom.width - 5) / 2;
 	if (m < n)
 	{
@@ -150,7 +150,7 @@ static int get_outline_rects(XRectangle *rects, rectangle geom)
 		rects[i].width = geom.width - (i << 1);
 		rects[i].height = geom.height - (i << 1);
 	}
-	if (geom.width - (n << 1) >= 5 && geom.height - (n << 1) >= 5)
+/*	if (geom.width - (n << 1) >= 5 && geom.height - (n << 1) >= 5)
 	{
 		if (geom.width - (n << 1) >= 10)
 		{
@@ -171,7 +171,7 @@ static int get_outline_rects(XRectangle *rects, rectangle geom)
 			i++;
 		}
 	}
-
+*/
 	return i;
 }
 

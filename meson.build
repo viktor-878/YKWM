@@ -1,5 +1,5 @@
 project(
-    'fvwm3',
+    'ykwm',
     'c',
     version: run_command(['cat', '.current-version'], check: true).stdout().strip(),
     license: 'GPL-2.0-or-later',
@@ -177,10 +177,25 @@ endif
 
 # Dependencies.
 all_found_deps = []
-
-# Required dependencies, we can easily iterate over these.
+cc = meson.get_compiler('c')
 summary_depvals = {}
-all_req_deps = ['fontconfig', 'ice', 'libevent', 'x11', 'xft', 'xrandr', 'xt', 'xtrans']
+
+# OpenMotif
+Xm = cc.find_library('Xm', required: true)
+all_found_deps += Xm
+summary_depvals += {'Xm': Xm}
+
+# X Toolkit Intrinsics
+Xt = cc.find_library('Xt', required: true)
+all_found_deps += Xt
+summary_depvals += {'Xt': Xt}
+
+# Xlib
+X11 = cc.find_library('X11', required: true)
+all_found_deps += X11
+summary_depvals += {'X11': X11}
+
+all_req_deps = ['fontconfig', 'ice', 'libevent', 'xft', 'xrandr', 'xtrans']
 foreach rd : all_req_deps
     this_dep = dependency(rd, required: true)
     summary_depvals += {rd: this_dep}
@@ -193,10 +208,21 @@ all_found_deps += xext
 summary_depvals += {'xext': xext}
 conf.set10('SHAPE', true)
 
+m = cc.find_library('m', required: true)
+all_found_deps += m
+summary_depvals += {'m': m}
+
+archive = cc.find_library('archive', required: true)
+all_found_deps += archive
+summary_depvals += {'archive': archive}
+
 xkbcommon = dependency('xkbcommon', required: true)
 all_found_deps += xkbcommon
 summary_depvals += {'xkbcommon': xkbcommon}
 conf.set10('HAVE_X11_XKBLIB_H', true)
+
+
+
 
 # Python is a required dependency, we generate shebangs at buildtime
 # This will error by default if there is no python interpreter found
@@ -374,6 +400,10 @@ if xrender.found()
     all_found_deps += xrender
     conf.set10('HAVE_XRENDER', true)
 endif
+
+libyk = cc.find_library('yk', required: true)
+all_found_deps += libyk
+summary_depvals += {'yk': libyk}
 
 # Hard-coded
 non_configurable_ops = [
