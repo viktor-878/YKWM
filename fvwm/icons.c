@@ -1217,16 +1217,16 @@ void DrawIconPixmapWindow(
 			(fw->icon_background_relief > 0)? Shadow:Relief,
 			abs(fw->icon_background_relief));
 		RelieveRectangle(
-			dpy, FW_W_ICON_PIXMAP(fw), 6, 6,
-			fw->icon_g.picture_w_g.width - 1 - 6 - 6,
-			fw->icon_g.picture_w_g.height - 1 - 6  - 6,
+			dpy, FW_W_ICON_PIXMAP(fw), fw->icon_background_padding, fw->icon_background_padding,
+			fw->icon_g.picture_w_g.width - 1 - fw->icon_background_padding - fw->icon_background_padding,
+			fw->icon_g.picture_w_g.height - 1 - fw->icon_background_padding  - fw->icon_background_padding,
 			(fw->icon_background_relief > 0)? Shadow:Relief,
 			(fw->icon_background_relief > 0)? Relief:Shadow,
 			1);
 		RelieveRectangle(
-			dpy, FW_W_ICON_PIXMAP(fw), 7, 7,
-			fw->icon_g.picture_w_g.width - 1 - 7 - 7,
-			fw->icon_g.picture_w_g.height - 1 - 7  - 7,
+			dpy, FW_W_ICON_PIXMAP(fw), (fw->icon_background_padding + 1), (fw->icon_background_padding + 1),
+			fw->icon_g.picture_w_g.width - 1 - (fw->icon_background_padding + 1) - (fw->icon_background_padding + 1),
+			fw->icon_g.picture_w_g.height - 1 - (fw->icon_background_padding + 1)  - (fw->icon_background_padding + 1),
 			(fw->icon_background_relief > 0)? Relief:Shadow,
 			(fw->icon_background_relief > 0)? Shadow:Relief,
 			1);
