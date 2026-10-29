@@ -62,7 +62,7 @@ PipeRead YKAnimateIterationEvaluate
 Style * IconBox 10 10 -10 -10, IconGrid 1 1, IconFill Right Bottom
 Style * IconSize 72 72 -1 -1
 Style * IconBackgroundRelief 2
-Style * IconBackgroundPadding 2
+Style * IconBackgroundPadding 6
 
 Style * IconBackgroundColorset 2, IconTitleColorset 2
 
