@@ -135,7 +135,6 @@ static struct
 #define CMD11(TEXT) \
   snprintf(cmd,sizeof(cmd),TEXT,module->name,module->name);\
   SendText(Channel,cmd,0);
-
 static void Loop(void);
 static void ParseOptions(void);
 static void ParseConfigLine(char *);
@@ -166,6 +165,9 @@ typedef struct AnimateEffects {
   void (*function)(int, int, int, int, int, int, int, int);
   char *button;                 /* used to set custom form */
 } ae;
+
+
+
 /* Note None and Random must be the first 2 entries. */
 struct AnimateEffects effects[] = {
   {"None", 0, AnimateResizeNone, NULL},
@@ -178,6 +180,31 @@ struct AnimateEffects effects[] = {
   {"Twist", 0, AnimateResizeTwist, NULL}
 };
 #define NUM_EFFECTS sizeof(effects) / sizeof(struct AnimateEffects)
+
+/* keep the dash count roughly constant regardless of shape size */
+static void SetDashesForSize(int w, int h, int fw, int fh)
+{
+	int size = w;
+	int lw = Animate.width > 0 ? Animate.width : 1;
+	int on, off;
+	char dashes[2];
+
+	if (h > size) size = h;
+	if (fw > size) size = fw;
+	if (fh > size) size = fh;
+	if (size < 0) size = 0;
+
+	on = size / 32;                 /* ~16 dashes per long side */
+	if (on < 4 * lw) on = 4 * lw;
+	if (on > 127) on = 127;
+	off = on / 3;
+	if (off < 2) off = 2;
+
+	dashes[0] = (char)on;
+	dashes[1] = (char)off;
+	XSetDashes(dpy, gc, 0, dashes, 2);
+}
+
 
 static Bool is_animation_visible(
     int x, int y, int w, int h, int fx, int fy, int fw, int fh)
@@ -195,6 +222,9 @@ static Bool is_animation_visible(
     {
 	is_end_visible = False;
     }
+    
+    
+    SetDashesForSize(w, h, fw, fh);
     return (is_start_visible || is_end_visible);
 }
 
@@ -246,7 +276,9 @@ static void AnimateResizeTwist(
 	points[3].y = cy+sin(angle+a+AS_PI)*d;
 	points[4].x = cx+cos(angle-a)*d;
 	points[4].y = cy+sin(angle-a)*d;
+	
 	XDrawLines(dpy, Scr.root, gc, points, 5, CoordModeOrigin);
+	
 	XFlush(dpy);
 	usleep(Animate.delay*1000);
 	XDrawLines(dpy, Scr.root, gc, points, 5, CoordModeOrigin);
@@ -1220,6 +1252,7 @@ void ParseConfigLine(char *buf) {
     }
   } /* config line for me */
 } /* end function */
+
 
 /* create GC for drawing the various animations */
 /* Called during start-up, and whenever the color or line width changes. */

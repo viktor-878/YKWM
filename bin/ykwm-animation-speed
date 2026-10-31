@@ -8,7 +8,7 @@ with open("/sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq") as f:
 if not cpuinfo:
     raise RuntimeError("Could not determine CPU frequency")
 
-score = float(cpuinfo) / 1000
+score = float(cpuinfo) / 600
 
 iterations = int(score / 6)
 

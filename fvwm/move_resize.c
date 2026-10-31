@@ -187,7 +187,7 @@ static struct
 	{ 0 }
 };
 
-char dashes[] = {1, 1, 0};
+char dashes[] = {6, 2};
 
 static void draw_move_resize_grid(rectangle geom)
 {
