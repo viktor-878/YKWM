@@ -75,10 +75,9 @@
 
 float rgpctMovementDefault[32] =
 {
-	-.01, 0, .01, .03,.08,.18,.3,.45,.60,.75,.85,.90,.94,.97,.99,1.0
-	/* must end in 1.0 */
+    0, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.0
 };
-int cmsDelayDefault = 10; /* milliseconds */
+int cmsDelayDefault = 50; /* milliseconds */
 
 /* current geometry of size window */
 static rectangle sizew_g =
@@ -127,7 +126,7 @@ static int get_outline_rects(XRectangle *rects, rectangle geom)
 	int n;
 	int m;
 
-	n = 5;
+	n = 1; // sets the thickness of the lines | cannot be bigger than 5 or ykwm crashes when moving a window in outline mode (tried it)
 	m = (geom.width - 5) / 2;
 	if (m < n)
 	{

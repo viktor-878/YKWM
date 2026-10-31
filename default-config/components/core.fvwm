@@ -56,7 +56,6 @@ Style ToolBox Colorset 2, HilightColorset 2, \
 
 Module FvwmAnimate
 *FvwmAnimate: Effect Zoom3D
-*FvwmAnimate: Width 2
 PipeRead YKAnimateIterationEvaluate
 
 Style * IconBox 10 10 -10 -10, IconGrid 1 1, IconFill Right Bottom
