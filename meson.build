@@ -524,8 +524,8 @@ subdir('bin')
 # Contrib
 # Provide a freedesktop-compilant, minimal xsession.
 configure_file(
-    input: 'contrib/xsession/fvwm3.desktop.in',
-    output: 'fvwm3.desktop',
+    input: 'contrib/xsession/yekara.desktop.in',
+    output: 'yekara.desktop',
     configuration: file_config,
     install_dir: datadir / 'xsessions',
     install: true,
