@@ -187,7 +187,7 @@ static struct
 	{ 0 }
 };
 
-char dashes[] = {6, 2};
+char dashes[] = {6, 4};
 
 static void draw_move_resize_grid(rectangle geom)
 {
@@ -221,8 +221,8 @@ static void draw_move_resize_grid(rectangle geom)
 	}
 	if (nrects > 0)
 	{
-		XSetDashes(dpy, Scr.XorGC, 0, dashes, 3);
-		XSetLineAttributes(dpy, Scr.XorGC, 1, LineOnOffDash, CapButt, JoinMiter);
+		XSetDashes(dpy, Scr.XorGC, 0, dashes, 2);
+		XSetLineAttributes(dpy, Scr.XorGC, 2, LineOnOffDash, CapButt, JoinMiter);
 		XDrawRectangles(dpy, Scr.Root, Scr.XorGC, rects, nrects);
 		XFlush(dpy);
 	}

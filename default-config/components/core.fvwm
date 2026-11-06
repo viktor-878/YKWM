@@ -57,6 +57,7 @@ Style ToolBox Colorset 2, HilightColorset 2, \
 Module FvwmAnimate
 *FvwmAnimate: Effect Zoom3D
 PipeRead ykwm-animation-speed
+*FvwmAnimate: Width 2
 
 Style * IconBox 10 10 -10 -10, IconGrid 1 1, IconFill Right Bottom
 Style * IconSize 72 72 -1 -1
