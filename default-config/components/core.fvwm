@@ -1,4 +1,4 @@
-PipeRead "yk-applications-menu"
+PipeRead "ykwm-applications-menu"
 
 PipeRead "readXColors"
 

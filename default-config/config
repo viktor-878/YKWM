@@ -14,5 +14,7 @@ Read $./components/transientConfig.fvwm
 AddToFunc StartFunction
 + I Exec mpv --no-video $./startup.wav
 
-
 Style * BackingStore
+SetEnv XDG_CURRENT_DESKTOP YK:YeKara
+SetEnv DESKTOP_SESSION YK:YeKara
+SetEnv XDG_SESSION_DESKTOP YK:YeKara
