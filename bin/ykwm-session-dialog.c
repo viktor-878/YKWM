@@ -79,6 +79,43 @@ void selection_cb(Widget w, XtPointer client_data, XtPointer call_data) {
     );
 }
 
+int get_animation_steps(void)
+{
+    FILE *fp = fopen(
+        "/sys/devices/system/cpu/cpufreq/policy0/cpuinfo_max_freq",
+        "r"
+    );
+
+    if (!fp)
+        return 12; /* Default fallback */
+
+    double cpuinfo;
+
+    if (fscanf(fp, "%lf", &cpuinfo) != 1) {
+        fclose(fp);
+        return 12;
+    }
+
+    fclose(fp);
+
+    double score = cpuinfo / 600.0;
+    return (int)(score / 6.0);
+}
+
+/* Pump events until a window is actually viewable (WMs map asynchronously) */
+static void wait_until_viewable(XtAppContext app, Display *dpy, Window w)
+{
+    XWindowAttributes attr;
+    for (int i = 0; i < 500; i++) {            /* ~1s timeout */
+        XSync(dpy, False);
+        while (XtAppPending(app))
+            XtAppProcessEvent(app, XtIMAll);
+        if (XGetWindowAttributes(dpy, w, &attr) && attr.map_state == IsViewable)
+            return;
+        usleep(2000);
+    }
+}
+
 /* Callback for button actions */
 void action_cb(Widget w, XtPointer client_data, XtPointer call_data) {
     int action_code = (int)(intptr_t)client_data;
@@ -277,72 +314,95 @@ int main(int argc, char **argv) {
 
     XtManageChild(button_box);
     XtManageChild(form);
+    
 
-    /* 6. INITIALIZE STYLE DIRECTLY ON THE TOPLEVEL SHELL */
+  /* 6. INITIALIZE STYLE DIRECTLY ON THE TOPLEVEL SHELL */
     YkResourceSysInit(main_window);
     YkReloadResources(main_window);
 
-    /* 7. REALIZE WIDGETS */
-    XtRealizeWidget(main_window);
-    XtRealizeWidget(overlay);
     
-    Window ov_win = XtWindow(overlay);
+
+    /* 7. REALIZE WIDGETS (dialog must NOT be mapped yet) */
+     XtRealizeWidget(overlay);
+
+    
+
+    
     Window mw_win = XtWindow(main_window);
 
     /* 8. SET WM HINTS */
     Atom state = XInternAtom(dpy, "_NET_WM_STATE", False);
     Atom fullscreen = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
-    Atom above = XInternAtom(dpy, "_NET_WM_STATE_ABOVE", False);
+   Atom above = XInternAtom(dpy, "_NET_WM_STATE_ABOVE", True);
 
-    Atom atoms[2] = { fullscreen, above };
-    XChangeProperty(dpy, ov_win, state, XA_ATOM, 32, PropModeReplace, (unsigned char *)atoms, 2);
-
-    /* 9. SHOW WINDOWS AND GRAB INPUT */
-    XtPopup(overlay, XtGrabNone);
-    XLowerWindow(dpy, mw_win);
     
-    XGrabPointer(dpy, mw_win, True, ButtonPressMask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
-    XGrabKeyboard(dpy, mw_win, True, GrabModeAsync, GrabModeAsync, CurrentTime);
-    
+   Atom atoms[2] = { fullscreen, above };
+   
+    Window ov_win = XtWindow(overlay);
+ XChangeProperty(dpy, ov_win, state, XA_ATOM, 32, PropModeReplace, (unsigned char *)atoms, 2);
+/* 9. PREPARE EVERYTHING BEFORE THE OVERLAY BECOMES VISIBLE */
     Pixmap bg_pix = XCreatePixmap(dpy, ov_win, screen_width, screen_height, DefaultDepth(dpy, screen));
     GC gc = XCreateGC(dpy, bg_pix, 0, NULL);
+    XPutImage(dpy, bg_pix, gc, base_shot, 0, 0, 0, 0, screen_width, screen_height);
+    XSetWindowBackgroundPixmap(dpy, ov_win, bg_pix);
     
+
+    /* First "frame" is just the untouched screenshot, so the overlay is
+       invisible to the user when it appears (no white flash). */
+    
+   
+    XtRealizeWidget(main_window);
     int fade_band_height = 320;
-    int total_steps = 253;
+    int total_steps = get_animation_steps();
+    if (total_steps < 1) total_steps = 1;          /* avoid divide-by-zero */
     int total_distance = screen_height + fade_band_height;
 
     double *noise_field = malloc(sizeof(double) * (size_t)screen_width * (size_t)screen_height);
-    for (int y = 0; y < screen_height; y++) {
-        for (int x = 0; x < screen_width; x++) {
+    for (int y = 0; y < screen_height; y++)
+        for (int x = 0; x < screen_width; x++)
             noise_field[(size_t)y * screen_width + x] = get_noise(x, y);
-        }
-    }
 
-    XImage *frame = XCreateImage(dpy, DefaultVisual(dpy, screen), DefaultDepth(dpy, screen), ZPixmap, 0, malloc(base_shot->bytes_per_line * screen_height), screen_width, screen_height, 32, 0);
+    XImage *frame = XCreateImage(dpy, DefaultVisual(dpy, screen), DefaultDepth(dpy, screen),
+                                 ZPixmap, 0, malloc(base_shot->bytes_per_line * screen_height),
+                                 screen_width, screen_height, 32, 0);
+  
+    XtMapWidget(main_window);
+    /* 10. SHOW OVERLAY, WAIT FOR IT TO BE REALLY ON SCREEN */
+    XtPopup(overlay, XtGrabNone);
+    XRaiseWindow(dpy, mw_win);
+    grab_data.window = mw_win;
+    XtAddCallback(combo, XmNselectionCallback, selection_cb, &grab_data);
+    
+    XGrabPointer(dpy, mw_win, True, ButtonPressMask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
+    XGrabKeyboard(dpy, mw_win, True, GrabModeAsync, GrabModeAsync, CurrentTime);
 
-    /* Transition Animation Loop */
+    wait_until_viewable(app, dpy, ov_win);
+
+    XSetInputFocus(dpy, mw_win, RevertToParent, CurrentTime);
+
+
+    XGrabPointer(dpy, ov_win, True, ButtonPressMask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
+    XGrabKeyboard(dpy, ov_win, True, GrabModeAsync, GrabModeAsync, CurrentTime);
+    
+    /* 11. TRANSITION ANIMATION LOOP */
     for (int step = 0; step <= total_steps; step++) {
         memcpy(frame->data, base_shot->data, base_shot->bytes_per_line * screen_height);
-    
+
         int lead_edge = (total_distance * step) / total_steps;
         int trail_edge = lead_edge - fade_band_height;
 
         for (int y = 0; y < screen_height; y++) {
             if (y <= lead_edge) {
                 if (y < trail_edge) {
-                    for (int x = 0; x < screen_width; x++) {
-                        if ((x + y) % 2 == 0) {
+                    for (int x = 0; x < screen_width; x++)
+                        if ((x + y) % 2 == 0)
                             XPutPixel(frame, x, y, black);
-                        }
-                    }
                 } else {
                     double local_density = (double)(lead_edge - y) / fade_band_height;
-
-                    for (int x = 0; x < screen_width; x++) {
-                        if (((x + y) % 2 == 0) && (noise_field[(size_t)y * screen_width + x] < local_density)) {
+                    for (int x = 0; x < screen_width; x++)
+                        if (((x + y) % 2 == 0) &&
+                            (noise_field[(size_t)y * screen_width + x] < local_density))
                             XPutPixel(frame, x, y, black);
-                        }
-                    }
                 }
             }
         }
@@ -352,33 +412,22 @@ int main(int argc, char **argv) {
         XClearWindow(dpy, ov_win);
         XFlush(dpy);
 
-        while (XtAppPending(app)) {
+        while (XtAppPending(app))
             XtAppProcessEvent(app, XtIMAll);
-        }
     }
-    grab_data.window = mw_win;
-    XtAddCallback(combo, XmNselectionCallback, selection_cb, &grab_data);
-    XRaiseWindow(dpy, mw_win);
-    XSetInputFocus(
-    dpy,
-    mw_win,
-    RevertToParent,
-    CurrentTime
-    );
 
-    XGrabPointer(dpy, mw_win, True, ButtonPressMask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
-    XGrabKeyboard(dpy, mw_win, True, GrabModeAsync, GrabModeAsync, CurrentTime);
-    
     XDestroyImage(frame);
     free(noise_field);
-    
-    XSetWindowBackgroundPixmap(dpy, ov_win, bg_pix);
-    XClearWindow(dpy, ov_win);
-
     XDestroyImage(base_shot);
     XFreePixmap(dpy, bg_pix);
     XFreeGC(dpy, gc);
 
+    /* 12. NOW (and only now) SHOW THE DIALOG ON TOP */
+    
+
+    
+    wait_until_viewable(app, dpy, mw_win);
+   
     XtAppMainLoop(app);
     return 0;
 }
