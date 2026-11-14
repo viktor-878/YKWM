@@ -18,6 +18,8 @@ Style * BackingStore
 SetEnv XDG_CURRENT_DESKTOP YK:YeKara
 SetEnv DESKTOP_SESSION YK:YeKara
 SetEnv XDG_SESSION_DESKTOP YK:YeKara
-
 Style sessionWindow Layer 6, Sticky
 Style SessionWindow Layer 6, Sticky
+Exec yk-runner "File Cabinet" --desktop
+Style YeKaraDesktop !Title, !Handles, !Borders, BorderWidth 0, !Button 1, !Button 2, !Button 4, !Closable, Sticky, StickyStippledTitle, WindowListSkip, !Closable, FixedSize, !Maximizable, !iconifiable, ResizeOpaque, Layer 0
+
