@@ -42,6 +42,15 @@ ykwm_applications_menu = executable(
     install: true,
 )
 
+ykwm_crash_screen = executable(
+    'ykwm-crash-screen',
+    'ykwm-crash-screen.c',
+    include_directories: includedirs,
+    link_with: libfvwm3,
+    dependencies: all_found_deps,
+    install: true,
+)
+
 ykwm_session_dialog = executable(
     'ykwm-session-dialog',
     'ykwm-session-dialog.c',

@@ -11,8 +11,17 @@ Read $./components/coreBindings.fvwm
 Read $./components/ROOTMENU.fvwm
 Read $./components/transientConfig.fvwm
 
+*YkwmSplash: SplashBG true
+*YkwmSplash: SplashBGColor #4682B4
+
+*YkwmSplash: BannerHAlign Center
+*YkwmSplash: BannerVAlign Center
+
+*YkwmSplash: NoDecor
+
 AddToFunc StartFunction
 + I Exec mpv --no-video $./startup.wav
++ I Module YkwmSplash
 
 Style * BackingStore
 SetEnv XDG_CURRENT_DESKTOP YK:YeKara

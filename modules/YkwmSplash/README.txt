@@ -1,0 +1,1 @@
+in the files it says FVWM but it was the easiest way i found to port over the fvwm banner code to this module while also modding it to be the YeKara splash screen, in the future, i might change it to say ykwm or something like that but for now, this is the fastest and quirkiest way to do this lol

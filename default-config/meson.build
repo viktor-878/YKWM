@@ -14,6 +14,7 @@ default_conf_files = [
     'colors',
     'startup.wav',
     'config',
+    'yekara-splash.xpm',
 ]
 
 install_data(
