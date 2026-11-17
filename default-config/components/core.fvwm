@@ -46,12 +46,12 @@ AddToDecor VectorsDecor
 
 Style * Colorset 1, HilightColorset 2, \
         BorderColorset 3, HilightBorderColorset 4, \
-        BorderWidth 8, HandleWidth 8, \
+        BorderWidth 7, HandleWidth 7, \
         UseDecor VectorsDecor, MwmBorder, MwmDecor, StippledTitle, StippledIconTitle
 
 Style ToolBox Colorset 2, HilightColorset 2, \
         BorderColorset 4, HilightBorderColorset 4, \
-        BorderWidth 8, HandleWidth 8
+        BorderWidth 7, HandleWidth 7
        
 
 Module FvwmAnimate
