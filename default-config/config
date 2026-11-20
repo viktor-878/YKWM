@@ -33,4 +33,4 @@ Style SessionWindow Layer 6, Sticky
 Exec yk-runner "File Cabinet" --desktop
 Style YeKaraDesktop !Title, !Handles, !Borders, BorderWidth 0, !Button 1, !Button 2, !Button 4, !Closable, Sticky, StickyStippledTitle, WindowListSkip, !Closable, FixedSize, FixedPosition, !Maximizable, !iconifiable, ResizeOpaque, Layer 0
 
-Style desktopPreferences Layer 6, Sticky, Borders, FixedSize, !Handles, !Button 1, PositionPlacement Center
+Style desktopPreferences Sticky, Borders, FixedSize, !Handles, !Button 1, PositionPlacement Center
