@@ -3,6 +3,7 @@ IgnoreModifiers L25
 
 PipeRead "ykwm-read-xresource-colors"
 PipeRead "ykwm-applications-menu"
+PipeRead "ykwm-preferences-menu"
 Exec "YKBackdrop"
 Exec xrandr --dpi 72
 Read $./components/core.fvwm

@@ -42,6 +42,15 @@ ykwm_applications_menu = executable(
     install: true,
 )
 
+ykwm_preferences_menu = executable(
+    'ykwm-preferences-menu',
+    'ykwm-preferences-menu.c',
+    include_directories: includedirs,
+    link_with: libfvwm3,
+    dependencies: all_found_deps,
+    install: true,
+)
+
 ykwm_crash_screen = executable(
     'ykwm-crash-screen',
     'ykwm-crash-screen.c',
