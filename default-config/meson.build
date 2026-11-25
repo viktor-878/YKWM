@@ -11,6 +11,7 @@ default_conf_files = [
     'components/coreBindings.fvwm',
     'components/ROOTMENU.fvwm',
     'components/transientConfig.fvwm',
+    'components/crash.fvwm',
     'colors',
     'startup.wav',
     'config',

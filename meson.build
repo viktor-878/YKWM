@@ -513,6 +513,7 @@ modules = {
     'FvwmRearrange': {'subdir': 'modules/FvwmRearrange'},
     'FvwmScript': {'subdir': 'modules/FvwmScript'},
     'YkwmSplash': {'subdir': 'modules/YkwmSplash'},
+    'YkwmCrashMon': {'subdir': 'modules/YkwmCrashMon'},
 }
 
 foreach m, _ : modules

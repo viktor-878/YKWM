@@ -1,0 +1,10 @@
+*YkwmCrashMon: PingInterval	5
+*YkwmCrashMon: ShowDialogs       yes
+*YkwmCrashMon: MonitorAll        yes
+*YkwmCrashMon: HangTimeout   10
+*YkwmCrashMon: CrashCommand  ykwm-crash-screen
+*YkwmCrashMon: Critical Class YeKaraDesktop
+*YkwmCrashMon: Critical Resource ToolBox
+
+AddToFun StartFunction
++ I Module YkwmCrashMon
